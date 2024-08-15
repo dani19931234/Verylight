@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maquinas</title>
+    <link href="styles/Maquinas.css" rel="stylesheet">
+</head>
+<body>
+    <div class="menu-container">
+        <h2><i class="fa-solid fa-cogs"></i> Seleccionar Máquina</h2>
+        <div class="dropdown">
+            <button onclick="toggleDropdown()">
+                <i class="fa-solid fa-robot"></i> Elige una máquina
+            </button>
+            <div class="dropdown-content" id="dropdownMenu">
+                <!-- Opciones de máquinas -->
+                <div onclick="selectMachine('Máquina 1')">Máquina 1</div>
+                <div onclick="selectMachine('Máquina 2')">Máquina 2</div>
+                <div onclick="selectMachine('Máquina 3')">Máquina 3</div>
+                <div onclick="selectMachine('Máquina 4')">Máquina 4</div>
+                <div onclick="selectMachine('Máquina 5')">Máquina 5</div>
+                <div onclick="selectMachine('Máquina 6')">Máquina 6</div>
+                <div onclick="selectMachine('Máquina 7')">Máquina 7</div>
+                <div onclick="selectMachine('Máquina 8')">Máquina 8</div>
+                <div onclick="selectMachine('Máquina 9')">Máquina 9</div>
+                <div onclick="selectMachine('Máquina 10')">Máquina 10</div>
+                <div onclick="selectMachine('Máquina 11')">Máquina 11</div>
+                <div onclick="selectMachine('Máquina 12')">Máquina 12</div>
+                <button onclick="confirmSelection()">Seleccionar máquina</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenedor para las estaciones -->
+    <div class="stations-container" id="stationsContainer">
+        <h3>Estaciones</h3>
+        <div class="stations-grid" id="stationsGrid"></div>
+    </div>
+
+    <script>
+        function toggleDropdown() {
+            document.getElementById("dropdownMenu").classList.toggle("show");
+        }
+
+        let selectedMachine = "";
+
+        function selectMachine(machine) {
+            selectedMachine = machine;
+            alert("Has seleccionado: " + machine);
+        }
+
+        function confirmSelection() {
+            if (selectedMachine) {
+                alert("Máquina confirmada: " + selectedMachine);
+                displayStations();
+            } else {
+                alert("Por favor, selecciona una máquina primero.");
+            }
+        }
+
+        function displayStations() {
+            const stationsContainer = document.getElementById("stationsContainer");
+            const stationsGrid = document.getElementById("stationsGrid");
+
+            stationsGrid.innerHTML = ""; // Limpiar estaciones previas si las hay
+
+            // Definir subestaciones activas o inactivas (para ejemplo)
+            const substationStatus = {
+                1: 'active',
+                2: 'inactive',
+                3: 'active',
+                4: 'inactive',
+                5: 'active',
+                6: 'inactive',
+                7: 'active',
+                8: 'inactive',
+                9: 'active',
+                10: 'inactive',
+                11: 'active',
+                12: 'inactive'
+            };
+
+            for (let i = 1; i <= 12; i++) {
+                const stationDiv = document.createElement("div");
+                stationDiv.className = "station";
+                stationDiv.innerHTML = `Estación ${i}<br>Subestaciones:`;
+
+                // Crear subestaciones para cada estación
+                for (let j = 1; j <= 2; j++) {
+                    const subStationDiv = document.createElement("div");
+                    subStationDiv.className = "substation";
+
+                    const statusDot = document.createElement("div");
+                    const status = substationStatus[i]; // Asigna el estado (activo/inactivo)
+                    statusDot.className = `status-dot ${status}`;
+
+                    subStationDiv.appendChild(statusDot);
+                    subStationDiv.innerHTML += `Subestación ${i}.${j}`;
+                    stationDiv.appendChild(subStationDiv);
+                }
+
+                stationsGrid.appendChild(stationDiv);
+            }
+
+            stationsContainer.style.display = "block"; // Mostrar las estaciones
+        }
+
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropdown button')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
